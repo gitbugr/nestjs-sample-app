@@ -1,0 +1,21 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+generator typegraphql {
+  provider = "typegraphql-prisma-nestjs-gitbugr"
+  output   = "../src/prisma-typegraphql"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model user {
+  id                                       Int                       @id @default(autoincrement())
+  email                                    String                    @unique
+  /// @TypeGraphQL.omit(output: true)
+  password                                 String
+  createdAt                                DateTime                  @default(now())
+}
